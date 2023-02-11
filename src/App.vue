@@ -1,26 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container-scroller">
+        <HeaderAdmin />
+        <div class="container-fluid page-body-wrapper">
+            <SidebarAdmin />
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <router-view />
+                </div>
+                <FooterAdmin />
+            </div>
+        </div>
+      </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HeaderAdmin from './components/HeaderAdmin.vue';
+import SidebarAdmin from './components/SidebarAdmin.vue';
+import FooterAdmin from './components/FooterAdmin.vue';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    name: "DashboardAll",
+    components: {
+        HeaderAdmin,
+        SidebarAdmin,
+        FooterAdmin
+    }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
