@@ -7,11 +7,17 @@ const router = createRouter({
     
 })
 
-router.beforeEach((to, from, next) => {
-    const token = Cookies.get("token");
-    if (to.name !== "LoginAdmin" && !token) next({ name: "LoginAdmin" });
-    if (to.name === "LoginAdmin" && token) next({ name: "DashboardAll" });
-    else next()
-})
+// router.beforeEach((to, from, next) => {
+//     const token = Cookies.get("token");
+//     if (to.name !== "LoginAdmin" && !token) next({ name: "LoginAdmin" });
+//     if (to.name === "LoginAdmin" && token) next({ name: "DashboardAdmin" });
+//     else next()
+// })
 
+router.beforeEach((to, from, next) => {
+    const token = Cookies.get("token")
+    if (to.name !== 'LoginAdmin' && !token) next({ name: 'LoginAdmin' })
+    if (to.name === "LoginAdmin" && token) next({ name: "DashboardAdmin" });
+    else next()
+  })
 export default router

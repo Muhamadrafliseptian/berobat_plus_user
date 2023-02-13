@@ -4,15 +4,11 @@ import Cookies from "js-cookie";
 import snakecaseKeys from "snakecase-keys";
 
 const Api = {
-    initUsers() {
+    init() {
         axios.defaults.baseURL = "https://berobatplus.shop/api/";
         axios.defaults.headers.post["Content-Type"] = "multipart/form-data";
         axios.defaults.headers.common.Authorization =
             "Bearer " + Cookies.get("token");
-    },
-    initProvince() {
-        axios.defaults.baseURL = "https://dev.farizdotid.com/api/daerahindonesia/";
-        axios.defaults.headers.post["Content-Type"] = "multipart/form-data";
     },
     setAccessControl() {
         axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";

@@ -10,7 +10,7 @@
                 <FooterAdmin />
             </div>
         </div>
-      </div>
+    </div>
 </template>
 
 <script>
@@ -19,7 +19,6 @@ import SidebarAdmin from './components/SidebarAdmin.vue';
 import FooterAdmin from './components/FooterAdmin.vue';
 
 export default {
-    name: "DashboardAll",
     components: {
         HeaderAdmin,
         SidebarAdmin,

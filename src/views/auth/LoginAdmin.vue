@@ -10,11 +10,13 @@
             <div class="col-md-10 mx-auto col-lg-5">
                 <form @submit.prevent="handleSubmit" class="p-4 p-md-5 border rounded-3 bg-light">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" v-model="users.nomor_hp" id="floatingInput" placeholder="name@example.com">
+                        <input type="text" class="form-control" v-model="users.nomor_hp" id="floatingInput"
+                            placeholder="name@example.com">
                         <label for="floatingInput">Email address</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" v-model="users.password" id="floatingPassword" placeholder="Password">
+                        <input type="password" class="form-control" v-model="users.password" id="floatingPassword"
+                            placeholder="Password">
                         <label for="floatingPassword">Password</label>
                     </div>
                     <div class="checkbox mb-3">
@@ -46,26 +48,28 @@ export default {
     },
     methods: {
         handleSubmit() {
-            this.$store.dispatch("postDataUsers", ["autentikasi/login", this.users]).then((response) => {
-                Cookies.set("token", response.token);
-                Cookies.set("user", JSON.stringify(response));
-                iziToast.success({
-                    title: "Berhasil Login",
-                    message: "Masuk dashboard",
-                    position: "topCenter",
-                    timeOut: 2000,
-                    onOpened: () => {
-                        window.location.replace('/')
-                    }
-                })
-            }).catch(() => {
-                iziToast.error({
-                    title: "Galat",
-                    message: "Periksa kembali email dan password",
-                    position: "topCenter"
-                })
-            });
-        }
+            console.log("tes");
+        this.$store.dispatch("postData", ["autentikasi/login", this.users]).then((response) => {
+            console.log(response);
+            Cookies.set("token", response.token);
+            Cookies.set("user", JSON.stringify(response));
+            iziToast.success({
+                title: "Berhasil Login",
+                message: "Masuk dashboard",
+                position: "topCenter",
+                timeOut: 2000,
+                onOpened: () => {
+                    window.location.replace('/')
+                }
+            })
+        }).catch(() => {
+            iziToast.error({
+                title: "Galat",
+                message: "Periksa kembali email dan password",
+                position: "topCenter"
+            })
+        });
     },
+},
 }
 </script>

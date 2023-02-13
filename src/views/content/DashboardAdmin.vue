@@ -118,6 +118,7 @@
 import CardDashboard from '@/components/CardDashboard.vue';
 
 export default {
+    name: "DashboardAdmin",
     components: {
         CardDashboard
     }

@@ -12,6 +12,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                <LoadingComponent v-if="isLoading"   />
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -34,22 +35,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr v-for="dokter in dokters" :key="dokter.id">
                                 <td class="py-1">
                                     <img :src="'./assets/images/faces/face1.jpg'" alt="image" />
                                 </td>
                                 <td>
-                                    Herman Beck
+                                    {{ dokter.userId.nama }}
                                 </td>
                                 <td>
-                                    Pondok Bahar
+                                    {{ dokter.userId.alamat }}
                                 </td>
                                 <td>
-                                    081411126356
+                                    {{ dokter.idDokter }}
                                 </td>
                                 <td class="text-center">
-                                    <router-link to="" class="btn btn-primary btn-sm me-2 text-white">Edit</router-link>
-                                    <router-link to="" class="btn btn-danger btn-sm me-2 text-white">Delete</router-link>
+                                    <router-link to=""
+                                        class="btn btn-danger btn-sm me-2 text-white">Delete</router-link>
                                     <router-link to="" class="btn btn-success btn-sm text-white">Detail</router-link>
                                 </td>
                             </tr>
@@ -62,8 +63,35 @@
 </template>
 
 <script>
+import LoadingComponent from '@/components/LoadingComponent.vue';
 export default {
-
+    data() {
+        return {
+            dokters: [],
+            isLoading: false
+        }
+    },
+    created() {
+        this.getDokter()
+    },
+    methods: {
+        async getDokter() {
+            this.isLoading = true
+            const params = [].join("&")
+            this.$store.dispatch("getData", ["akun/dokter", params]).then((result) => {
+                setTimeout(() => {
+                    this.isLoading = false
+                    this.dokters = result.data
+                }, 1000);
+            }).catch((err) => {
+                console.log(err);
+                this.isLoading = false
+            });
+        }
+    },
+    components: {
+        LoadingComponent
+    }
 }
 </script>
 
