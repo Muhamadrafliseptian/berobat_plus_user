@@ -11,7 +11,7 @@
                   <img :src="'./assets/images/logo.png'" class="w-100 h-100" alt="logo" />
                 </a>
                 <a class="navbar-brand brand-logo-mini" href="index.html">
-                  <img src="images/logo-mini.svg" alt="logo" />
+                <img :src="'./assets/images/logo-mini.svg'" alt="logo" />
                 </a>
               </div>
             </div>

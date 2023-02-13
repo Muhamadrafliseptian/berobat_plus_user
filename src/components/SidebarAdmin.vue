@@ -2,10 +2,10 @@
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <router-link class="nav-link" to="/">
                     <i class="mdi mdi-grid-large menu-icon"></i>
                     <span class="menu-title">Dashboard</span>
-                </a>
+                </router-link>
             </li>
             <li class="nav-item nav-category">Master Data</li>
             <li class="nav-item">
@@ -18,7 +18,9 @@
                 </a>
                 <div class="collapse" id="ui-basic">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Data Dokter</a>
+                        <li class="nav-item">
+                            <router-link class="nav-link" to="/dokter">Data Dokter
+                            </router-link>
                         </li>
                     </ul>
                 </div>
@@ -33,7 +35,7 @@
                 </a>
                 <div class="collapse" id="apotek">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Data Apotek</a>
+                        <li class="nav-item"> <a class="nav-link" @click="goTo('/')">Data Apotek</a>
                         </li>
                         <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Data Obat</a>
                         </li>
@@ -41,8 +43,7 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#apotek" aria-expanded="false"
-                    aria-controls="ui-basic">
+                <a class="nav-link" href="#apotek" aria-expanded="false" aria-controls="ui-basic">
                     <i class="menu-icon mdi mdi-flower
                     "></i>
                     <span class="menu-title">Perawat</span>
@@ -56,14 +57,13 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#apotek" aria-expanded="false"
-                    aria-controls="ui-basic">
+                <a class="nav-link" href="#pasien" aria-expanded="false" aria-controls="ui-basic">
                     <i class="menu-icon mdi mdi-account-multiple
                     "></i>
                     <span class="menu-title">Pasien</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="apotek">
+                <div class="collapse" id="pasien">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Data Pasien</a>
                         </li>
@@ -81,9 +81,11 @@
                 </a>
                 <div class="collapse" id="ui-account">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Profile Admin</a>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Profile
+                                Admin</a>
                         </li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Profile Perusahaan</a>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Profile
+                                Perusahaan</a>
                         </li>
                     </ul>
                 </div>
@@ -91,3 +93,17 @@
         </ul>
     </nav>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            methods: {
+                goTo(url) {
+                    this.$router.push(url);
+                },
+            },
+        }
+    }
+}
+</script>
