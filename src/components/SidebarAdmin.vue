@@ -35,6 +35,38 @@
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Data Apotek</a>
                         </li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Data Obat</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#apotek" aria-expanded="false"
+                    aria-controls="ui-basic">
+                    <i class="menu-icon mdi mdi-flower
+                    "></i>
+                    <span class="menu-title">Perawat</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="apotek">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Data Perawat</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#apotek" aria-expanded="false"
+                    aria-controls="ui-basic">
+                    <i class="menu-icon mdi mdi-account-multiple
+                    "></i>
+                    <span class="menu-title">Pasien</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="apotek">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Data Pasien</a>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -49,17 +81,12 @@
                 </a>
                 <div class="collapse" id="ui-account">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Data Admin</a>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Profile Admin</a>
+                        </li>
+                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Profile Perusahaan</a>
                         </li>
                     </ul>
                 </div>
-            </li>
-            <li class="nav-item nav-category">help</li>
-            <li class="nav-item">
-                <a class="nav-link" href="http://bootstrapdash.com/demo/star-admin2-free/docs/documentation.html">
-                    <i class="menu-icon mdi mdi-file-document"></i>
-                    <span class="menu-title">Documentation</span>
-                </a>
             </li>
         </ul>
     </nav>
