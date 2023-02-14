@@ -12,8 +12,9 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                <LoadingComponent v-if="isLoading"   />
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped pb-5">
                         <thead>
                             <tr>
                                 <th>
@@ -34,91 +35,74 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="dokter in dokters" :key="dokter.id">
+                            <tr v-for="perawat in perawats" :key="perawat.id">
                                 <td class="py-1">
                                     <img :src="'./assets/images/faces/face1.jpg'" alt="image" />
                                 </td>
                                 <td>
-                                    {{ dokter.userId.nama }}
+                                    {{ perawat.nama }}
                                 </td>
                                 <td>
-                                    {{ dokter.userId.alamat }}
+                                    {{ perawat.alamat }}
                                 </td>
                                 <td>
-                                    {{ dokter.userId.email }}
+                                    {{ perawat.alamat }}
                                 </td>
                                 <td class="text-center">
-                                    <ButtonAction class="btn-warning " @click="deleteDokter(dokter.idDokter)" message="edit"/>
-                                    <ButtonAction class="btn-danger " @click="deleteDokter(dokter.idDokter)" message="delete"/>
+                                    <router-link to=""
+                                        class="btn btn-danger btn-sm me-2 text-white">Delete</router-link>
+                                    <router-link to="" class="btn btn-success btn-sm text-white">Detail</router-link>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <EmptyData v-if="isEmpty" class="text-center"/>
                 </div>
-                <LoadingComponent v-if="isLoading" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import EmptyData from '@/components/EmptyData.vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
-import ButtonAction from '@/components/ButtonAction.vue';
 export default {
     data() {
         return {
-            dokters: [],
-            isLoading: false
+            perawats: [],
+            isLoading: false,
+            isEmpty: false
         }
     },
     created() {
-        this.getDokter()
+        this.getPerawat()
     },
     methods: {
-        async getDokter() {
+        async getPerawat() {
             this.isLoading = true
+            this.isEmpty = true
             const params = [].join("&")
-            this.$store.dispatch("getData", ["akun/dokter", params]).then((result) => {
+            this.$store.dispatch("getData", ["akun/perawat", params]).then((result) => {
+                console.log(result.data);
                 setTimeout(() => {
                     this.isLoading = false
-                    this.dokters = result.data
+                    this.isEmpty = false
+                    this.perawats = result.data
                 }, 1000);
             }).catch((err) => {
                 console.log(err);
+                this.isEmpty = false
                 this.isLoading = false
             });
-        },
-        deleteDokter(idDokter) {
-            const self = this
-            this.$swal({
-                icon: 'question',
-                title: 'Do you want to save the changes?',
-                showDenyButton: true,
-                showCancelButton: true,
-                confirmButtonText: 'Delete',
-                denyButtonText: `Dont delete`,
-            })
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        self.$store.dispatch("deleteData", ["akun/dokter", idDokter])
-                        this.$swal({
-                            icon: "success",
-                            text: "Data Anda Berhasil di Hapus",
-                        }).then(function () {
-                            window.location = "dokter"
-                        });
-
-                    } else if (result.isDenied) {
-                        this.$swal('Changes are not saved', '', 'info')
-                        self.isLoading = false;
-                        self.getDokter();
-                    }
-                });
         }
     },
     components: {
-        LoadingComponent, ButtonAction
+        LoadingComponent,
+        EmptyData
     }
 }
 </script>
 
+<style lang="scss" scoped>
+
+</style>

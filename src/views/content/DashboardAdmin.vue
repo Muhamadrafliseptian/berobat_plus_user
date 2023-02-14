@@ -16,13 +16,12 @@
                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="statistics-details d-flex align-items-center justify-content-between">
-                                    <CardDashboard para="Dokter" hira="5"/>
-                                    <CardDashboard para="Perawat" hira="5"/>
-                                    <CardDashboard para="Apotek" hira="2"/>
-                                    <CardDashboard para="Pasien" hira="20"/>
-                                    <CardDashboard para="Pasien" hira="20"/>
-                                    <CardDashboard para="Pasien" hira="20"/>
+                                <LoadingComponent class="text-center justify-content-center align-items-center mb-3" v-if="isLoading" />
+                                <div class="statistics-details d-flex align-items-center justify-content-between" v-for="(counting, index) in datas" :key="index">
+                                        <CardDashboard text="dokter" :jumlah="counting.dokter"/>
+                                        <CardDashboard text="Perawat" :jumlah="counting.perawat" />
+                                        <CardDashboard text="Apotek" :jumlah="counting.apotek" />
+                                        <CardDashboard text="Pasien" :jumlah="counting.konsumen" />
                                 </div>
                             </div>
                         </div>
@@ -116,11 +115,41 @@
 
 <script>
 import CardDashboard from '@/components/CardDashboard.vue';
-
+import LoadingComponent from '@/components/LoadingComponent.vue';
 export default {
     name: "DashboardAdmin",
     components: {
-        CardDashboard
-    }
+        CardDashboard,
+        LoadingComponent
+    },
+    data() {
+        return {
+            datas: [],
+            isLoading: false,
+            dokter: "",
+            perawat: "",
+            konsumen: "",
+            apotek: ""
+        }
+    },
+    created() {
+        this.getDokter()
+    },
+    methods: {
+        async getDokter() {
+            this.isLoading = true
+            const params = [].join("&")
+            this.$store.dispatch("getData", ["count_data", params]).then((result) => {
+                setTimeout(() => {
+                    this.isLoading = false
+                    this.datas = result.jumlahData
+                }, 1000);
+            }).catch((err) => {
+                console.log(err);
+                this.isLoading = false
+            });
+        }
+    },
 }
+
 </script>
