@@ -6,7 +6,8 @@
             </h4>
         </div>
         <div class="col-6 text-end">
-            <a href="" class="btn btn-sm btn-primary px-4">Tambah Data +</a>
+            <ButtonAction class="btn-primary " @click="$router.push('/dokter/create')" message="Tambah Data +" />
+
         </div>
     </div>
     <div class="col-lg-12 grid-margin stretch-card">
@@ -48,8 +49,10 @@
                                     {{ dokter.userId.email }}
                                 </td>
                                 <td class="text-center">
-                                    <ButtonAction class="btn-warning " @click="deleteDokter(dokter.idDokter)" message="edit"/>
-                                    <ButtonAction class="btn-danger " @click="deleteDokter(dokter.idDokter)" message="delete"/>
+                                    <ButtonAction class="btn-warning " @click="deleteDokter(dokter.idDokter)"
+                                        message="edit" />
+                                    <ButtonAction class="btn-danger " @click="deleteDokter(dokter.idDokter)"
+                                        message="delete" />
                                 </td>
                             </tr>
                         </tbody>

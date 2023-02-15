@@ -18,7 +18,10 @@
     <div class="navbar-menu-wrapper d-flex align-items-top">
       <ul class="navbar-nav">
         <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-          <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">{{ user.nama }}</span></h1>
+          
+          <h1 class="welcome-text">Good Morning,  
+            <!-- <span class="text-black fw-bold">{{ user.nama }}</span> -->
+          </h1>
           <h3 class="welcome-sub-text">Your performance summary this week </h3>
         </li>
       </ul>
@@ -185,18 +188,33 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Cookies from 'js-cookie';
 export default {
   data() {
     return {
-
+      isLoading: false
     }
   },
   computed: {
     user() {
       return JSON.parse(Cookies.get('user'));
+    },
+  },
+  methods: {
+    logout() {
+      this.isLoading = true;
+      axios.get("logout", {
+        headers: {
+          Authorization: "Bearer " + Cookies.get("token")
+        }
+      }).then(() => {
+        Cookies.remove("token")
+        Cookies.remove("user")
+        window.location.replace("/login")
+      });
     }
-  }
+  },
 
 }
 </script>

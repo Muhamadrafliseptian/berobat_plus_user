@@ -48,7 +48,6 @@ export default {
     },
     methods: {
         handleSubmit() {
-            console.log("tes");
         this.$store.dispatch("postData", ["autentikasi/login", this.users]).then((response) => {
             console.log(response);
             Cookies.set("token", response.token);

@@ -40,7 +40,7 @@
                                     <img :src="'./assets/images/faces/face1.jpg'" alt="image" />
                                 </td>
                                 <td>
-                                    {{ apotek.getUser.nama }}
+                                    {{ apotek.idOwner }}
                                 </td>
                                 <td>
                                     {{ apotek.getUser.alamat }}
@@ -79,7 +79,7 @@ export default {
             this.isLoading = true
             const params = [].join("&")
             this.$store.dispatch("getData", ["akun/apotek", params]).then((result) => {
-                console.log(result);
+                console.log(result.data);
                 setTimeout(() => {
                     this.isLoading = false
                     this.apoteks = result.data

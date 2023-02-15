@@ -1,4 +1,5 @@
 <template>
+    
     <div class="row">
         <div class="col-sm-12">
             <div class="home-tab">
@@ -16,15 +17,24 @@
                     <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
                         <div class="row">
                             <div class="col-sm-12">
-                                <LoadingComponent class="text-center justify-content-center align-items-center mb-3" v-if="isLoading" />
-                                <div class="statistics-details d-flex align-items-center justify-content-between" v-for="(counting, index) in datas" :key="index">
-                                        <CardDashboard text="dokter" :jumlah="counting.dokter"/>
-                                        <CardDashboard text="Perawat" :jumlah="counting.perawat" />
-                                        <CardDashboard text="Apotek" :jumlah="counting.apotek" />
-                                        <CardDashboard text="Pasien" :jumlah="counting.konsumen" />
+                                <LoadingComponent class="text-center justify-content-center align-items-center mb-3"
+                                    v-if="isLoading" />
+                                <div class="statistics-details d-flex align-items-center justify-content-between"
+                                    v-for="(counting, index) in datas" :key="index">
+                                    <CardDashboard text="dokter" :jumlah="counting.dokter" />
+                                    <CardDashboard text="Perawat" :jumlah="counting.perawat" />
+                                    <CardDashboard text="Apotek" :jumlah="counting.apotek" />
+                                    <CardDashboard text="Pasien" :jumlah="counting.konsumen" />
                                 </div>
                             </div>
                         </div>
+
+                        <button class="btn btn-success btn-sm" @click="logout">
+                            Logout
+                        </button>
+
+                        <hr>
+
                         <div class="row">
                             <div class="col-lg-8 d-flex flex-column">
                                 <div class="row flex-grow">
@@ -114,6 +124,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import CardDashboard from '@/components/CardDashboard.vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 export default {
@@ -147,6 +159,19 @@ export default {
             }).catch((err) => {
                 console.log(err);
                 this.isLoading = false
+            });
+        },
+
+        logout() {
+
+            axios.get("logout", {
+                headers: {
+                    Authorization: "Bearer " + Cookies.get("token")
+                }
+            }).then(() => {
+                Cookies.remove("token")
+                Cookies.remove("user")
+                window.location.replace("/login")
             });
         }
     },
