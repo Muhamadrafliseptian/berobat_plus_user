@@ -1,21 +1,16 @@
 <template>
-    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5 ">
         <div class="row align-items-center g-lg-5 py-5">
-            <div class="col-lg-7 text-center text-lg-start">
-                <h1 class="display-4 fw-bold lh-1 mb-3">Vertically centered hero sign-up form</h1>
-                <p class="col-lg-10 fs-4">Below is an example form built entirely with Bootstrap’s form controls. Each
-                    required form group has a validation state that can be triggered by attempting to submit the form
-                    without completing it.</p>
-            </div>
             <div class="col-md-10 mx-auto col-lg-5">
+                <h3 class="text-center py-3"><b>Login Page</b></h3>
                 <form @submit.prevent="handleSubmit" class="p-4 p-md-5 border rounded-3 bg-light">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" v-model="users.nomor_hp" id="floatingInput"
+                        <input type="text" class="form-control"  required v-model="users.nomor_hp" id="floatingInput"
                             placeholder="name@example.com">
                         <label for="floatingInput">Email address</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" v-model="users.password" id="floatingPassword"
+                        <input type="password" class="form-control" required v-model="users.password" id="floatingPassword"
                             placeholder="Password">
                         <label for="floatingPassword">Password</label>
                     </div>
@@ -26,7 +21,9 @@
                     </div>
                     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign In</button>
                     <hr class="my-4">
-                    <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+                    <FormulateInput type="text" label="What ice cream flavor?"
+                        help="Note: We're fresh out of strawberries and bananas." name="flavor"
+                        validation="required|not:strawberry,banana" />
                 </form>
             </div>
         </div>
@@ -35,7 +32,7 @@
 
 <script>
 import Cookies from "js-cookie";
-import iziToast from "izitoast"
+// import iziToast from "izitoast"
 export default {
     data() {
         return {
@@ -48,27 +45,20 @@ export default {
     },
     methods: {
         handleSubmit() {
-        this.$store.dispatch("postData", ["autentikasi/login", this.users]).then((response) => {
-            console.log(response);
-            Cookies.set("token", response.token);
-            Cookies.set("user", JSON.stringify(response));
-            iziToast.success({
-                title: "Berhasil Login",
-                message: "Masuk dashboard",
-                position: "topCenter",
-                timeOut: 2000,
-                onOpened: () => {
-                    window.location.replace('/')
-                }
-            })
-        }).catch(() => {
-            iziToast.error({
-                title: "Galat",
-                message: "Periksa kembali email dan password",
-                position: "topCenter"
-            })
-        });
+            this.$store.dispatch("postData", ["autentikasi/login", this.users]).then((response) => {
+                console.log(response);
+                Cookies.set("token", response.token);
+                Cookies.set("user", JSON.stringify(response));
+                this.$swal({
+                    icon: "success",
+                    text: "Berhasil Login",
+                }).then(function () {
+                    window.location = "/"
+                });
+            }).catch((error) => {
+                console.log(error);
+            });
+        },
     },
-},
 }
 </script>

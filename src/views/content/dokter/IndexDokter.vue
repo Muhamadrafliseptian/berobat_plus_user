@@ -27,7 +27,7 @@
                                     Alamat
                                 </th>
                                 <th>
-                                    Nomor Telepon
+                                    Nomor STR
                                 </th>
                                 <th class="text-center">
                                     Aksi
@@ -46,7 +46,7 @@
                                     {{ dokter.userId.alamat }}
                                 </td>
                                 <td>
-                                    {{ dokter.userId.email }}
+                                    {{ dokter.nomorStr }}
                                 </td>
                                 <td class="text-center">
                                     <ButtonAction class="btn-warning " @click="deleteDokter(dokter.idDokter)"
