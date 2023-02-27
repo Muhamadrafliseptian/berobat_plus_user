@@ -3,28 +3,34 @@
         <div class="row align-items-center g-lg-5 py-5">
             <div class="col-md-10 mx-auto col-lg-5">
                 <h3 class="text-center py-3"><b>Login Page</b></h3>
-                <form @submit.prevent="handleSubmit" class="p-4 p-md-5 border rounded-3 bg-light">
+                <Form @submit="handleSubmit" :validation-schema="schema" v-slot="{ errors }"
+                    class="p-4 p-md-5 border rounded-3 bg-light">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control"  required v-model="users.nomor_hp" id="floatingInput"
-                            placeholder="name@example.com">
-                        <label for="floatingInput">Email address</label>
+                        <Field name="name" type="text" class="form-control" v-model="users.nomor_hp" id="floatingField"
+                            placeholder="name@example.com" />
+                        <label for="floatingField">Nomor hp</label>
+                        <span class="text-danger">{{ errors.name }}</span>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" required v-model="users.password" id="floatingPassword"
-                            placeholder="Password">
+                        <Field name="password" type="password" class="form-control" required v-model="users.password"
+                            id="floatingPassword" placeholder="Password" />
                         <label for="floatingPassword">Password</label>
+                        <span class="text-danger">{{ errors.password }}</span>
                     </div>
                     <div class="checkbox mb-3">
                         <label>
-                            <input type="checkbox" value="remember-me"> Remember me
+                            <Field name="checkbox" type="checkbox" value="remember-me"> Remember me
+                            </Field>
                         </label>
                     </div>
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign In</button>
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">
+                      <span v-if="isLoading"><i>sebentar, kami sedang memproses data kamu</i></span>
+                      <span v-else>
+                        Login
+                      </span>
+                    </button>
                     <hr class="my-4">
-                    <FormulateInput type="text" label="What ice cream flavor?"
-                        help="Note: We're fresh out of strawberries and bananas." name="flavor"
-                        validation="required|not:strawberry,banana" />
-                </form>
+                </Form>
             </div>
         </div>
     </div>
@@ -32,32 +38,55 @@
 
 <script>
 import Cookies from "js-cookie";
+import * as yup from 'yup'
+import { Field, Form } from 'vee-validate'
 // import iziToast from "izitoast"
 export default {
     data() {
+        const schema = yup.object({
+            name: yup.string().required('nomor hp wajib diisi'),
+            password: yup.string().min(8, 'password minimal 8 karakter').max(20, 'password maksimal 20 karakter').required('password wajib diisi')
+        })
         return {
+            schema,
             users: {
                 nomor_hp: '',
                 password: '',
                 error: [],
+                isLoading: false
             }
         }
+    },
+    components: {
+        Field,
+        Form,
     },
     methods: {
         handleSubmit() {
             this.$store.dispatch("postData", ["autentikasi/login", this.users]).then((response) => {
-                console.log(response);
                 Cookies.set("token", response.token);
                 Cookies.set("user", JSON.stringify(response));
-                this.$swal({
-                    icon: "success",
-                    text: "Berhasil Login",
-                }).then(function () {
-                    window.location = "/"
-                });
-            }).catch((error) => {
+                this.isLoading = true
+                setTimeout(() => {
+                    this.$swal({
+                        text: "berhasil login",
+                        icon: "success"
+                    }).then(function () {
+                        window.location = "/"
+                    })
+                }, 2000);
+            }).catch(error => {
                 console.log(error);
-            });
+                setTimeout(() => {
+                    this.isLoading = false
+                    this.$swal({
+                        text: "Periksa Kembali Form Isian Anda",
+                        icon: "error"
+                    }).then(function () {
+                        window.location = "/login"
+                    })
+                }, 2000);
+            })
         },
     },
 }
