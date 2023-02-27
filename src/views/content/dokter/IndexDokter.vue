@@ -82,6 +82,7 @@ export default {
             this.isLoading = true
             const params = [].join("&")
             this.$store.dispatch("getData", ["akun/dokter", params]).then((result) => {
+                console.log(result);
                 setTimeout(() => {
                     this.isLoading = false
                     this.dokters = result.data

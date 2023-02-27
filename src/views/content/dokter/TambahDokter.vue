@@ -2,23 +2,28 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Horizontal Two column</h4>
-                <form class="form-sample">
+                <h4 class="card-title">Tambah Dokter</h4>
+                <Form @submit="handleSubmitDokter" class="form-sample" :validation-schema="schema" v-slot="{ errors }">
                     <p class="card-description">
-                        Personal info
+                        Data Diri Dokter
                     </p>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <inputField Label="Nama Lengkap"/>
+                                <InputField Name="namaLengkap" Label="Nama Lengkap" />
+                                <span :class="[errorClass]">
+                                    <small>
+                                        {{ errors.namaLengkap }}
+                                    </small>
+                                </span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Last Name</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
+                                <InputField Name="email" type="email" Label="Email" />
+                                <small>
+                                    <span :class="[errorClass]">{{ errors.email }}</span>
+                                </small>
                             </div>
                         </div>
                     </div>
@@ -30,114 +35,36 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Date of Birth</label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" placeholder="dd/mm/yyyy" />
-                                </div>
+                                <InputField type="date" Label="Tanggal Lahir" Name="tanggalLahir"
+                                    placeholder="dd/mm/yyyy" />
+                                <small>
+                                    <span :class="[errorClass]">{{ errors.tanggalLahir }}</span>
+                                </small>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Category</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control">
-                                        <option>Category1</option>
-                                        <option>Category2</option>
-                                        <option>Category3</option>
-                                        <option>Category4</option>
-                                    </select>
-                                </div>
+                                <InputField Name="tempatLahir" Label="Tempat Lahir" />
+                                <small>
+                                    <span :class="[errorClass]">{{ errors.tempatLahir }}</span>
+                                </small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Membership</label>
-                                <div class="col-sm-4">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="membershipRadios"
-                                                id="membershipRadios1" value="" checked>
-                                            Free
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5">
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="membershipRadios"
-                                                id="membershipRadios2" value="option2">
-                                            Professional
-                                        </label>
-                                    </div>
-                                </div>
+                                <InputField Name="nomorHp" Label="Nomor HP" />
+                                <small>
+                                    <span :class="[errorClass]">{{ errors.nomorHp }}</span>
+                                </small>
                             </div>
                         </div>
                     </div>
-                    <p class="card-description">
-                        Address
-                    </p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Address 1</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">State</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
+                    <div class="text-end">
+                        <ButtonAction class="bg-primary w-25 px-4" message="submit" type="submit" />
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Address 2</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Postcode</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">City</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Country</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control">
-                                        <option>America</option>
-                                        <option>Italy</option>
-                                        <option>Russia</option>
-                                        <option>Britain</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                </Form>
             </div>
         </div>
     </div>
@@ -146,13 +73,32 @@
 <script>
 import InputField from '@/components/InputField.vue';
 import SelectOption from '@/components/SelectOption.vue';
+import ButtonAction from '@/components/ButtonAction.vue';
+import { Form } from 'vee-validate'
+import * as yup from 'yup'
 export default {
- components: {
-    InputField, SelectOption
- }
+    data() {
+        return {
+            errorClass: 'text-danger'
+        }
+    },
+    computed: {
+        schema() {
+            return yup.object({
+                namaLengkap: yup.string().required('kolom nama lengkap wajib diisi'),
+                email: yup.string().required('kolom email wajib diisi').email('email harus valid'),
+                nomorHp: yup.string().required('kolom nomor hp wajib diisi').min(12).max(13),
+                tempatLahir: yup.string().required('kolom tempat lahir wajib diisi'),
+            })
+        }
+    },
+    methods: {
+        handleSubmitDokter() { }
+    },
+    components: {
+        SelectOption, Form, InputField, ButtonAction,
+    }
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
