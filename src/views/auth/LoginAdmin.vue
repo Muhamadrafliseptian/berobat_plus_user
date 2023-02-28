@@ -58,7 +58,7 @@ export default {
     data() {
         const schema = yup.object({
             name: yup.string().required('nomor hp wajib diisi').max(13, 'nomor hp maksimal 13 angka').min(12, 'nomor hp minimal 12 angka'),
-            password: yup.string().min(8, 'password minimal 8 karakter').max(20, 'password maksimal 20 karakter').required('password wajib diisi')
+            password: yup.string().min(8, 'password minimal 8 karakter').max(20, 'password maksimal 20 karakter').required('😋 password wajib diisi')
         })
         return {
             schema,
