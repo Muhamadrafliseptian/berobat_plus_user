@@ -1,8 +1,5 @@
 <template>
-    <label class="col-sm-3 col-form-label">{{Label}}</label>
-    <div class="col-sm-9">
-        <Field :name="Name" :type="type" class="form-control" />
-    </div>
+        <Field :name="Name" :type="type" class="form-control" :value="value" />
 </template>
 
 <script>
@@ -23,7 +20,11 @@ export default {
         Name: {
             type: String,
             default: "belumDiisi"
+        },
+        value: {
+            type: String
         }
-    }
+    },
+
 }
 </script>
