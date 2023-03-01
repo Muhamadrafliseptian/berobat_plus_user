@@ -27,7 +27,8 @@ import FooterAdmin from './components/FooterAdmin.vue';
 export default {
     data() {
         return {
-            token: Cookies.get("token")
+            token: Cookies.get("token"),
+            publicPath: process.env.BASE_URL
         }
     },
     components: {

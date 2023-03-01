@@ -20417,8 +20417,8 @@ code {
   z-index: -1;
 }
 
-.performance-overview-carousel .carousel-inner .item .icon.icon-a::before {
-  content: url("../../images/dashboard/shape-1.svg");
+/* .performance-overview-carousel .carousel-inner .item .icon.icon-a::before {
+  content: url("assets/images/dashboard/shape-1.svg");
 }
 
 .performance-overview-carousel .carousel-inner .item .icon.icon-b::before {
@@ -20427,7 +20427,7 @@ code {
 
 .performance-overview-carousel .carousel-inner .item .icon.icon-c::before {
   content: url("../../images/dashboard/shape-3.svg");
-}
+} */
 
 .performance-overview-carousel .carousel-control-prev,
 .performance-overview-carousel .carousel-control-next {
@@ -22988,10 +22988,10 @@ code {
   color: #ffffff;
 }
 
-.data-icon-card-primary .background-icon::before {
+/* .data-icon-card-primary .background-icon::before {
   content: url("../../images/dashboard/shape-4.svg");
   position: absolute;
-}
+} */
 
 .data-icon-card-primary .background-icon i {
   z-index: 1;
@@ -23007,10 +23007,10 @@ code {
   color: #ffffff;
 }
 
-.data-icon-card-secondary .background-icon::before {
+/* .data-icon-card-secondary .background-icon::before {
   content: url("../../images/dashboard/shape-4.svg");
   position: absolute;
-}
+} */
 
 .data-icon-card-secondary .background-icon i {
   z-index: 1;
@@ -23026,10 +23026,10 @@ code {
   color: #ffffff;
 }
 
-.data-icon-card-success .background-icon::before {
+/* .data-icon-card-success .background-icon::before {
   content: url("../../images/dashboard/shape-4.svg");
   position: absolute;
-}
+} */
 
 .data-icon-card-success .background-icon i {
   z-index: 1;
@@ -23045,10 +23045,10 @@ code {
   color: #ffffff;
 }
 
-.data-icon-card-info .background-icon::before {
+/* .data-icon-card-info .background-icon::before {
   content: url("../../images/dashboard/shape-4.svg");
   position: absolute;
-}
+} */
 
 .data-icon-card-info .background-icon i {
   z-index: 1;
@@ -23064,10 +23064,10 @@ code {
   color: #ffffff;
 }
 
-.data-icon-card-warning .background-icon::before {
+/* .data-icon-card-warning .background-icon::before {
   content: url("../../images/dashboard/shape-4.svg");
   position: absolute;
-}
+} */
 
 .data-icon-card-warning .background-icon i {
   z-index: 1;
@@ -23083,10 +23083,10 @@ code {
   color: #ffffff;
 }
 
-.data-icon-card-danger .background-icon::before {
+/* .data-icon-card-danger .background-icon::before {
   content: url("../../images/dashboard/shape-4.svg");
   position: absolute;
-}
+} */
 
 .data-icon-card-danger .background-icon i {
   z-index: 1;
@@ -23102,10 +23102,10 @@ code {
   color: #ffffff;
 }
 
-.data-icon-card-light .background-icon::before {
+/* .data-icon-card-light .background-icon::before {
   content: url("../../images/dashboard/shape-4.svg");
   position: absolute;
-}
+} */
 
 .data-icon-card-light .background-icon i {
   z-index: 1;
@@ -23121,10 +23121,10 @@ code {
   color: #ffffff;
 }
 
-.data-icon-card-dark .background-icon::before {
+/* .data-icon-card-dark .background-icon::before {
   content: url("../../images/dashboard/shape-4.svg");
   position: absolute;
-}
+} */
 
 .data-icon-card-dark .background-icon i {
   z-index: 1;
