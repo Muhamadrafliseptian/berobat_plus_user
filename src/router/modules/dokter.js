@@ -13,6 +13,7 @@ export default [
         path: '/dokter/:id/edit',
         name: "EditDokter",
         component: () => import('@/views/content/dokter/EditDokter'),
-        params: true
+        params: true,
+        
     }
 ]

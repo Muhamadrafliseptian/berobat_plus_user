@@ -59,7 +59,7 @@ const Api = {
         return axios.delete(resource);
     },
     update(resource, slug, params) {
-        return axios.put(
+        return axios.put(       
             `${resource}/${slug}`,
             snakecaseKeys(params, { deep: true })
         );

@@ -29,6 +29,9 @@
                                 <th>
                                     Nomor STR
                                 </th>
+                                <th>
+                                    Status
+                                </th>
                                 <th class="text-center">
                                     Aksi
                                 </th>
@@ -48,9 +51,16 @@
                                 <td>
                                     {{ dokter.nomorStr }}
                                 </td>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
                                 <td class="text-center">
-                                    <ButtonAction class="btn-warning " @click="deleteDokter(dokter.idDokter)"
-                                        message="edit" />
+                                    <router-link :to="'/dokter/' + dokter.idDokter + '/edit'">
+                                        <ButtonAction class="btn-warning " message="edit" />
+                                    </router-link>
                                     <ButtonAction class="btn-danger " @click="deleteDokter(dokter.idDokter)"
                                         message="delete" />
                                 </td>
@@ -71,7 +81,8 @@ export default {
     data() {
         return {
             dokters: [],
-            isLoading: false
+            isLoading: false,
+            isActive: false
         }
     },
     created() {
@@ -91,6 +102,13 @@ export default {
                 console.log(err);
                 this.isLoading = false
             });
+        },
+        toggle() {
+            if (!this.isActive) {
+                this.isActive = true;
+            } else {
+                this.isActive = false;
+            }
         },
         deleteDokter(idDokter) {
             const self = this
@@ -125,4 +143,67 @@ export default {
     }
 }
 </script>
+<style>
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 26px;
+}
 
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+</style>

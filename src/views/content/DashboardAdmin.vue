@@ -1,5 +1,4 @@
 <template>
-    
     <div class="row">
         <div class="col-sm-12">
             <div class="home-tab">
@@ -28,13 +27,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <button class="btn btn-success btn-sm" @click="logout">
-                            Logout
-                        </button>
-
                         <hr>
-
                         <div class="row">
                             <div class="col-lg-8 d-flex flex-column">
                                 <div class="row flex-grow">
@@ -87,8 +80,8 @@
                                                         <div
                                                             class="d-flex justify-content-between align-items-center mb-2 mb-sm-0">
                                                             <div class="circle-progress-width">
-                                                                <div id="totalVisitors"
-                                                                    class="progressbar-js-circle pr-2"></div>
+                                                                <div id="totalVisitors" class="progressbar-js-circle pr-2">
+                                                                </div>
                                                             </div>
                                                             <div>
                                                                 <p class="text-small mb-2">Total Visitors</p>
@@ -99,8 +92,8 @@
                                                     <div class="col-sm-6">
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <div class="circle-progress-width">
-                                                                <div id="visitperday"
-                                                                    class="progressbar-js-circle pr-2"></div>
+                                                                <div id="visitperday" class="progressbar-js-circle pr-2">
+                                                                </div>
                                                             </div>
                                                             <div>
                                                                 <p class="text-small mb-2">Visits per day</p>
@@ -120,12 +113,9 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
-import axios from 'axios';
-import Cookies from 'js-cookie';
 import CardDashboard from '@/components/CardDashboard.vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 export default {
@@ -161,19 +151,6 @@ export default {
                 this.isLoading = false
             });
         },
-
-        logout() {
-
-            axios.get("logout", {
-                headers: {
-                    Authorization: "Bearer " + Cookies.get("token")
-                }
-            }).then(() => {
-                Cookies.remove("token")
-                Cookies.remove("user")
-                window.location.replace("/login")
-            });
-        }
     },
 }
 
