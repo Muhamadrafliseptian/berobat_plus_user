@@ -6,7 +6,7 @@
             </h4>
         </div>
         <div class="col-6 text-end">
-            <a href="" class="btn btn-sm btn-primary px-4">Tambah Data +</a>
+            <router-link to="/apotek/create"><ButtonAction class="btn-primary" message="Tambah Data"/></router-link>
         </div>
     </div>
     <div class="col-lg-12 grid-margin stretch-card">
@@ -42,7 +42,7 @@
                                     <img :src="'./assets/images/faces/face1.jpg'" alt="image" />
                                 </td>
                                 <td>
-                                    {{ apotek.idOwner }}
+                                    {{ apotek.getUser.nama }}
                                 </td>
                                 <td>
                                     {{ apotek.getUser.alamat }}
