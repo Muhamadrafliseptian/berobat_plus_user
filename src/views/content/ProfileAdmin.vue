@@ -2,17 +2,17 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Edit Dokter</h4>
-                <Form @submit="handleEditDokter" class="form-sample" :validation-schema="schema" v-slot="{ errors }">
-                    <Input type="hidden" v-model="form.id_dokter" />
+                <h4 class="card-title">Profil Admin</h4>
+                <Form class="form-sample" :validation-schema="schema" v-slot="{ errors }">
+                    {{ user }}
+                    <Input type="hidden" v-model="user.id" />
                     <p class="card-description text-primary">
                         Data Akun Dokter
                     </p>
-                    <LoadingComponent v-if="isLoading"/>
                     <div class="row">
                         <FieldLabel label="email">
                             <template #body>
-                                <InputField Name="email" v-model="form.email" />
+                                <InputField Name="email" v-model="user.email" />
                                 <span :class="[errorClass]">
                                     <small>
                                         {{ errors.email }}
@@ -22,7 +22,7 @@
                         </FieldLabel>
                         <FieldLabel label="Nomor HP">
                             <template #body>
-                                <InputField Name="nomorHp" v-model="form.nomor_hp" />
+                                <InputField Name="nomorHp" v-model="user.nomor_hp" />
                                 <span :class="[errorClass]">
                                     <small>
                                         {{ errors.nomorHp }}
@@ -32,19 +32,14 @@
                         </FieldLabel>
                     </div>
                     <div class="row">
-                        <FieldLabel label="Kelas">
+                        <FieldLabel label="Berat Badan">
                             <template #body>
-                                <InputField Name="kelas" Label="Kelas" type="text" v-model="kelas" />
+                                <InputField Name="beratBadan" type="text" v-model="user.berat_badan" />
                                 <span :class="[errorClass]">
                                     <small>
-                                        {{ errors.kelas }}
+                                        {{ errors.beratBadan }}
                                     </small>
                                 </span>
-                            </template>
-                        </FieldLabel>
-                        <FieldLabel label="Foto">
-                            <template #body>
-                                <InputField Name="Foto" type="file" v-model="form.foto" class="form-control file-upload-info" />
                             </template>
                         </FieldLabel>
                     </div>
@@ -54,7 +49,7 @@
                     <div class="row">
                         <FieldLabel label="Nama">
                             <template #body>
-                                <InputField Name="namaLengkap" Label="Nama Lengkap" v-model="form.nama" />
+                                <InputField Name="namaLengkap" Label="Nama Lengkap" v-model="user.nama" />
                                 <span :class="[errorClass]">
                                     <small>
                                         {{ errors.namaLengkap }}
@@ -62,12 +57,12 @@
                                 </span>
                             </template>
                         </FieldLabel>
-                        <FieldLabel label="Nomor STR">
+                        <FieldLabel label="Tinggi Badan">
                             <template #body>
-                                <InputField Name="nomorStr" Label="Nomor STR" v-model="nomor_str" />
+                                <InputField Name="tinggiBadan" Label="Nomor STR" v-model="user.tinggi_badan" />
                                 <span :class="[errorClass]">
                                     <small>
-                                        {{ errors.nomorStr }}
+                                        {{ errors.tinggiBadan }}
                                     </small>
                                 </span>
                             </template>
@@ -76,7 +71,7 @@
                     <div class="row">
                         <FieldLabel label="Jenis Kelamin">
                             <template #body>
-                                <select class="form-control" v-model="form.jenis_kelamin">
+                                <select class="form-control" v-model="user.jenis_kelamin">
                                     <option value="P">Perempuan</option>
                                     <option value="L">Laki Laki</option>
                                 </select>
@@ -84,7 +79,7 @@
                         </FieldLabel>
                         <FieldLabel label="Tanggal Lahir">
                             <template #body>
-                                <VueDatePicker v-model="form.tanggal_lahir" Name="tanggalLahir" placeholder="ddmmyy"
+                                <VueDatePicker v-model="user.tanggal_lahir" Name="tanggalLahir" placeholder="ddmmyy"
                                     :format="formatDatePicker" :max-date="new Date()" />
                                 <small>
                                     <span :class="[errorClass]">{{ errors.tanggalLahir }}</span>
@@ -95,7 +90,7 @@
                     <div class="row">
                         <FieldLabel label="Tempat Lahir">
                             <template #body>
-                                <InputField Name="tempatLahir" Label="Tempat Lahir" v-model="form.tempat_lahir" />
+                                <InputField Name="tempatLahir" Label="Tempat Lahir" v-model="user.tempat_lahir" />
                                 <small>
                                     <span :class="[errorClass]">{{ errors.tempatLahir }}</span>
                                 </small>
@@ -103,7 +98,7 @@
                         </FieldLabel>
                         <FieldLabel label="Alamat">
                             <template #body>
-                                <InputField Name="alamat" Label="Alamat" v-model="form.alamat" />
+                                <InputField Name="alamat" Label="Alamat" v-model="user.alamat" />
                                 <small>
                                     <span :class="[errorClass]">{{ errors.alamat }}</span>
                                 </small>
@@ -111,7 +106,7 @@
                         </FieldLabel>
                     </div>
                     <div class="text-end">
-                        <ButtonAction class="bg-primary w-25 px-4" message="submit" type="submit" />
+                        <ButtonAction class="bg-primary w-25 px-4" message="submit" type="submit" @click="editAdmin()"/>
                     </div>
                 </Form>
             </div>
@@ -123,115 +118,110 @@
 import InputField from '@/components/InputField.vue';
 import ButtonAction from '@/components/ButtonAction.vue';
 import VueDatePicker from '@vuepic/vue-datepicker'
-import LoadingComponent from '@/components/LoadingComponent.vue';
 import { Form } from 'vee-validate'
 import * as yup from 'yup'
 import FieldLabel from '@/components/FieldLabel.vue';
 export default {
-    props: ['id'],
     data() {
         return {
-            nomor_str: '',
-            kelas: '',
-            form: {
+            user: {
+                id: '',
                 nama: '',
-                nomor_hp: '',
                 email: '',
+                nomor_hp: '',
+                alamat: '',
                 jenis_kelamin: '',
+                foto: '',
+                usia: '',
+                berat_badan: '',
+                tinggi_badan: '',
                 tempat_lahir: '',
                 tanggal_lahir: '',
-                alamat: ''
             },
             errorClass: 'text-danger',
-            dokters: [],
-            isSubmit: false,
-            previewImage: null,
             isLoading: false
         }
     },
     mounted() {
-        this.getDokter()
+        this.getAdmin()
     },
     computed: {
         schema() {
             return yup.object({
                 namaLengkap: yup.string().required(' ⚠ kolom nama lengkap wajib diisi'),
                 email: yup.string().required('⚠ kolom email wajib diisi').email('⚠ email harus valid'),
-                kelas: yup.string().required('⚠ kolom kelas wajib diisi').max(1, 'harus angka satu').min(0).retur,
                 nomorHp: yup.number().typeError('harus nomor').required(' ⚠ kolom nomor hp wajib diisi'),
                 tempatLahir: yup.string().required('⚠ kolom tempat lahir wajib diisi'),
                 alamat: yup.string().required('⚠  ykolom alamat wajib diisi'),
                 nomorStr: yup.number().typeError('⚠ Kolom Nomor STR harus nomor').required('⚠ Kolom Nomor STR wajib diisi')
             })
         },
-        idFromParams() {
-            return this.$route.params.id
-        }
+
     },
     methods: {
         formatDatePicker(date) {
 
-            const year = date.getFullYear()
-            const month = date.getMonth() + 1;
             const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear()
 
             return `${year}/${month}/${day}`
         },
-        getDokter() {
-            this.isLoading = true
-            this.$store.dispatch("getData", ["akun/dokter/" + this.idFromParams + "/edit", []]).then((result) => {
-                this.form.nama = result.data.userId.nama
-                this.form.email = result.data.userId.email
-                this.form.foto = result.data.userId.foto
-                this.form.nomor_hp = result.data.userId.nomorHp
-                this.form.tanggal_lahir = result.data.userId.tanggalLahir
-                this.form.tempat_lahir = result.data.userId.tempatLahir
-                this.form.jenis_kelamin = result.data.userId.jenisKelamin
-                this.form.alamat = result.data.userId.alamat
-                this.nomor_str = result.data.nomorStr
-                this.kelas = result.data.kelas
-                setTimeout(() => {
-                    this.isLoading = false
-                    this.dokters = result.data
-                }, 1000);
-            }).catch((err) => {
-                console.log(err);
-                this.isLoading = false
-            });
+        getAdmin() {
+            const params = [].join("&")
+            this.$store.dispatch("getData", ["akun/profil/admin/profil", params]).then((result) => {
+                this.user.id = result.data.id
+                this.user.nama = result.data.nama
+                this.user.email = result.data.email
+                this.user.nomor_hp = result.data.nomorHp
+                this.user.tanggal_lahir = result.data.tanggalLahir
+                this.user.tempat_lahir = result.data.tempatLahir
+                this.user.alamat = result.data.alamat
+                this.user.tinggi_badan = result.data.tinggiBadan
+                this.user.jenis_kelamin = result.data.jenisKelamin
+                this.user.berat_badan = result.data.beratBadan
+                console.log(result);
+            }).catch((error) => {
+                console.log(error);
+            })
         },
-        handleEditDokter() {
+        editAdmin() {
+            console.log("test");
+            let type = "updateData"
             const self = this
             const data = {
-                nomor_str: self.nomor_str,
-                kelas: self.kelas,
-                nama: self.form.nama,
-                email: self.form.email,
-                nomor_hp: self.form.nomor_hp,
-                jenis_kelamin: self.form.jenis_kelamin,
-                tempat_lahir: self.form.tempat_lahir,
-                tanggal_lahir: self.form.tanggal_lahir,
-                alamat: self.form.alamat
+                nama: self.user.nama,
+                email: self.user.email,
+                nomor_hp: self.user.nomor_hp,
+                tanggal_lahir: self.user.tanggal_lahir,
+                tempat_lahir: self.user.tempat_lahir,
+                alamat: self.user.alamat,
+                tinggi_badan: self.user.tinggi_badan,
+                jenis_kelamin: self.user.jenis_kelamin,
+                berat_badan: self.user.berat_badan
             }
-            self.$store.dispatch("updateData", ["akun/dokter", this.idFromParams, data]).then((result) => {
+            let url = [
+                "akun/profil/admin/profil", '', data
+            ]
+            self.$store.dispatch(type, url).then((result) => {
                 console.log(result);
                 self.$swal({
                     text: "berhasil mengubah data",
                     icon: "success"
                 }).then(function () {
-                    window.location = "/dokter"
+                    window.location = "/update_profile"
                 })
             }).catch((error) => {
                 console.log(error);
             })
-        }
+        },
     },
     components: {
         Form,
         InputField,
         ButtonAction,
         FieldLabel,
-        VueDatePicker,
-        LoadingComponent
+        VueDatePicker
     }
 }
 </script>

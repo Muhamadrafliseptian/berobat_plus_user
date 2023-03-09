@@ -55,15 +55,15 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#pasien" aria-expanded="false" aria-controls="ui-basic">
-                    <i class="menu-icon mdi mdi-account-multiple
-                    "></i>
+                <router-link class="nav-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="pasien" to="#pasien">
+                    <i class="menu-icon mdi mdi-store-24-hour"></i>
                     <span class="menu-title">Pasien</span>
                     <i class="menu-arrow"></i>
-                </a>
+                </router-link>
                 <div class="collapse" id="pasien">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Data Pasien</a>
+                        <li class="nav-item">
+                            <router-link to="/konsumen" class="nav-link">Data Pasien</router-link>
                         </li>
                     </ul>
                 </div>

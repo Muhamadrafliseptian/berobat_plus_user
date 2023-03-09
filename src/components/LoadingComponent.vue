@@ -1,7 +1,8 @@
 <template>
     <div class="d-flex justify-content-center py-4">
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+        <div class="btn h-25 w-100 alert-primary" type="button" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Loading...
         </div>
     </div>
 </template>

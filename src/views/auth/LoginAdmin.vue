@@ -65,8 +65,8 @@ export default {
             users: {
                 nomor_hp: '',
                 password: '',
-                error: [],
             },
+            error: [],
             showPassword: false,
             isLoading: false
         }
@@ -82,6 +82,7 @@ export default {
         },
         handleSubmit() {
             this.$store.dispatch("postData", ["autentikasi/login", this.users]).then((response) => {
+              
                 Cookies.set("token", response.token);
                 Cookies.set("user", JSON.stringify(response));
                 this.isLoading = true
@@ -93,9 +94,9 @@ export default {
                         window.location = "/"
                     })
                 }, 2000);
-            }).catch(error => {
-                console.log(error);
-                setTimeout(() => {
+            }).catch((err) => {
+                console.log("kondangceng");
+                console.log(err);
                     this.isLoading = false
                     this.$swal({
                         text: "Periksa Kembali Form Isian Anda",
@@ -103,7 +104,6 @@ export default {
                     }).then(function () {
                         window.location = "/login"
                     })
-                }, 2000);
             })
         },
     },

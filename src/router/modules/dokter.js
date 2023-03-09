@@ -14,6 +14,5 @@ export default [
         name: "EditDokter",
         component: () => import('@/views/content/dokter/EditDokter'),
         params: true,
-        
     }
 ]

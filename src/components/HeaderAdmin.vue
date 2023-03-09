@@ -20,7 +20,7 @@
         <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
 
           <h1 class="welcome-text">Good Morning,
-            <!-- <span class="text-black fw-bold">{{ user.nama }}</span> -->
+            <span class="text-black fw-bold">{{ user.nama }}</span>
           </h1>
           <h3 class="welcome-sub-text">Your performance summary this week </h3>
         </li>
@@ -158,16 +158,16 @@
           </div>
         </li>
         <li class="nav-item dropdown d-none d-lg-block user-dropdown">
-          <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-            <img class="img-xs rounded-circle" :src="'./assets/images/faces/face8.jpg'" alt="Profile image"> </a>
+          <router-link to="#" class="nav-link" id="UserDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <img class="img-xs rounded-circle" :src="'./assets/images/faces/face8.jpg'" alt="Profile image"> </router-link>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
             <div class="dropdown-header text-center">
               <img class="img-md rounded-circle" :src="'./assets/images/faces/face8.jpg'" alt="Profile image">
               <p class="mb-1 mt-3 font-weight-semibold">{{ user.nama }}</p>
               <p class="fw-light text-muted mb-0">{{ user.email }}</p>
             </div>
-            <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My
-              Profile <span class="badge badge-pill badge-danger">1</span></a>
+            <router-link to="" class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My
+              Profile <span class="badge badge-pill badge-danger">1</span></router-link>
             <a class="dropdown-item" ><i
                 class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i>
               Messages</a>
@@ -193,7 +193,8 @@ import Cookies from 'js-cookie';
 export default {
   data() {
     return {
-      isLoading: false
+      isLoading: false,
+      previewImage: false
     }
   },
   computed: {

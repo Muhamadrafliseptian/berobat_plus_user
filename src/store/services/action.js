@@ -34,6 +34,7 @@ const process = {
                 Api.init();
                 Api.post(param[0], param[1]).then(
                     (response) => {
+            
                         resolve(response.data);
                     },
                     (error) => {
