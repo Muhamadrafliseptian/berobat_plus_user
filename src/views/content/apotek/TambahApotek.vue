@@ -9,6 +9,11 @@
                         Data Akun Apotek
                     </p>
                     <div class="row">
+                        <FieldLabel label="Foto Profil">
+                            <template #body>
+                                <InputField class="custom-file-input" type="file" v-on:change="onChange" />
+                            </template>
+                        </FieldLabel>
                         <FieldLabel label="Nama">
                             <template #body>
                                 <InputField Name="nama" v-model="form.nama" />
@@ -92,16 +97,19 @@ export default {
     methods: {
         handleSubmitApotek() {
             console.log("halo");
-            const self = this
+            const selfPost = this
             const data = {
-                nama: self.form.nama,
-                email: self.form.email,
-                nomor_hp: self.form.nomor_hp,
-                alamat: self.form.alamat
+                nama: selfPost.form.nama,
+                email: selfPost.form.email,
+                nomor_hp: selfPost.form.nomor_hp,
+                alamat: selfPost.form.alamat,
+                file: selfPost.file
             }
-            self.$store.dispatch("postData", ["akun/apotek", data]).then((response) => {
+            let dataImage = new FormData();
+            dataImage.append('file', selfPost.file)
+            selfPost.$store.dispatch("postData", ["akun/apotek", data]).then((response) => {
                 console.log(response);
-                self.$swal({
+                selfPost.$swal({
                     text: "berhasil menambahkan data",
                     icon: "success"
                 }).then(function () {
@@ -110,6 +118,9 @@ export default {
             }).catch(error => {
                 console.log(error);
             })
+        },
+        onChange(e){
+            selfPost.file = e.target.files[0]
         }
     },
     components: {

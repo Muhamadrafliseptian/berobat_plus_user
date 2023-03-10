@@ -6,7 +6,9 @@
             </h4>
         </div>
         <div class="col-6 text-end">
-            <router-link to="/apotek/create"><ButtonAction class="btn-primary" message="Tambah Data"/></router-link>
+            <router-link to="/apotek/create">
+                <ButtonAction class="btn-primary" message="Tambah Data" />
+            </router-link>
         </div>
     </div>
     <div class="col-lg-12 grid-margin stretch-card">
@@ -37,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="apotek in apoteks" :key="apotek.id">
+                            <tr v-for="apotek in apoteks" :key="apotek.idOwner">
                                 <td class="py-1">
                                     <img :src="'./assets/images/faces/face1.jpg'" alt="image" />
                                 </td>
@@ -57,7 +59,11 @@
                                     </label>
                                 </td>
                                 <td class="text-center">
-                                    <ButtonAction class="btn btn-danger" @click="deleteApotek(apotek.idOwner)" message="Delete" />
+                                    <router-link :to="'apotek/' + apotek.idOwner + '/edit' ">
+                                        <ButtonAction class="btn btn-warning" data-bs-toggle="modal" message="Edit" />
+                                    </router-link>
+                                    <ButtonAction class="btn btn-danger" @click="deleteApotek(apotek.idOwner)"
+                                        message="Delete" />
                                 </td>
                             </tr>
                         </tbody>
@@ -75,11 +81,19 @@ import LoadingComponent from '@/components/LoadingComponent.vue';
 export default {
     data() {
         return {
+            idOwner: '',
+            form: {
+                nama: '',
+                email: '',
+                alamat:'',
+                nomor_hp: ''
+            },
             apoteks: [],
-            isLoading: false
+            isLoading: false,
+            error: []
         }
     },
-    created() {
+    mounted() {
         this.getApotek()
     },
     methods: {
@@ -87,7 +101,7 @@ export default {
             this.isLoading = true
             const params = [].join("&")
             this.$store.dispatch("getData", ["akun/apotek", params]).then((result) => {
-                console.log(result.data);
+                console.log(result);
                 setTimeout(() => {
                     this.isLoading = false
                     this.apoteks = result.data
@@ -97,7 +111,7 @@ export default {
                 this.isLoading = false
             });
         },
-        deleteApotek(idOwner){
+        deleteApotek(idOwner) {
             const selfDelete = this
             selfDelete.$swal({
                 icon: 'question',
@@ -106,17 +120,17 @@ export default {
                 showCancelButton: true,
                 confirmButtonText: "Ya, Hapus",
                 denyButtonText: "Jangan Hapus"
-            }).then((result)=>{
-                if (result.isConfirmed){
+            }).then((result) => {
+                if (result.isConfirmed) {
                     selfDelete.$store.dispatch("deleteData", ["akun/apotek", idOwner])
                     selfDelete.$swal({
                         icon: "success",
                         text: "Data Anda Berhasil Dihapus",
-                    }).then(function(){
+                    }).then(function () {
                         window.location = "apotek"
                     })
-                }else if (result.isDenied){
-                    selfDelete.$swal ("Perubahan tidak tersimpan", '', 'info')
+                } else if (result.isDenied) {
+                    selfDelete.$swal("Perubahan tidak tersimpan", '', 'info')
                     selfDelete.isLoading = true
                     selfDelete.getApotek()
                 }
@@ -124,7 +138,7 @@ export default {
         }
     },
     components: {
-        LoadingComponent, ButtonAction
+        LoadingComponent, ButtonAction,
     }
 }
 </script>

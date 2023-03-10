@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Edit Konsumen</h4>
-                <Form @submit="handleEditKonsumen" class="form-sample">
+                <Form class="form-sample">
                     <Input type="hidden" v-model="user.idKonsumen" />
                     <p class="card-description text-primary">
                         Data Akun Konsumen
@@ -16,7 +16,7 @@
                         </FieldLabel>
                         <FieldLabel label="Nomor HP">
                             <template #body>
-                                <InputField Name="nomorHp" v-model="user.nomor_hp" :disabled=isDisabled />
+                                <InputField Name="nomorHp" v-model="user.nomorHp" :disabled=isDisabled />
                             </template>
                         </FieldLabel>
                     </div>
@@ -50,7 +50,7 @@
                     <div class="row">
                         <FieldLabel label="Jenis Kelamin">
                             <template #body>
-                                <select class="form-control" v-model="user.jenis_kelamin" :disabled=isDisabled>
+                                <select class="form-control" v-model="user.jenisKelamin" :disabled=isDisabled>
                                     <option value="P">Perempuan</option>
                                     <option value="L">Laki Laki</option>
                                 </select>
@@ -58,14 +58,14 @@
                         </FieldLabel>
                         <FieldLabel label="Tanggal Lahir">
                             <template #body>
-                                <VueDatePicker v-model="user.tanggal_lahir" Name="tanggalLahir" placeholder="ddmmyy" :disabled=isDisabled :format="formatDatePicker" :max-date="new Date()"/>
+                                <VueDatePicker v-model="user.tanggalLahir" Name="tanggalLahir" placeholder="ddmmyy" :disabled=isDisabled :format="formatDatePicker" :max-date="new Date()"/>
                             </template>
                         </FieldLabel>
                     </div>
                     <div class="row">
                         <FieldLabel label="Tempat Lahir">
                             <template #body>
-                                <InputField Name="tempatLahir" v-model="user.tempat_lahir" :disabled=isDisabled />
+                                <InputField Name="tempatLahir" v-model="user.tempatLahir" :disabled=isDisabled />
                             </template>
                         </FieldLabel>
                         <FieldLabel label="Alamat">
@@ -97,16 +97,15 @@ export default {
             nik: '',
             user: {
                 nama: '',
-                nomor_hp: '',
+                nomorHp: '',
                 email: '',
-                jenis_kelamin: '',
-                tempat_lahir: '',
-                tanggal_lahir: '',
+                jenisKelamin: '',
+                tempatLahir: '',
+                tanggalLahir: '',
                 alamat: '',
                 usia: ''
             },
             errorClass: 'text-danger',
-            konsumens: [],
             isLoading: false
         }
     },  
@@ -143,20 +142,12 @@ export default {
         getKonsumen(){
             this.isLoading = true
             this.$store.dispatch("getData", ["akun/konsumen/"+ this.idFromParams + "/edit" , []]).then((result) => {
-                this.user.usia = result.data.user.usia
-                this.user.nama = result.data.user.nama
-                this.user.email = result.data.user.email
-                this.user.nomor_hp = result.data.user.nomorHp
-                this.user.tanggal_lahir = result.data.user.tanggalLahir
-                this.user.tempat_lahir = result.data.user.tempatLahir
-                this.user.alamat = result.data.user.alamat
-                this.user.jenis_kelamin = result.data.user.jenisKelamin
+                this.user = result.data.user
                 this.nik = result.data.nik
                 this.id_konsumen = result.data.idKonsumen
                 console.log(result);
                 setTimeout(() => {
                     this.isLoading = false
-                    this.konsumens = result.data
                 }, 1000);
             }).catch((err) => {
                 console.log(err);

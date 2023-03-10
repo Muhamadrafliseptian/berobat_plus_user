@@ -7,4 +7,11 @@ export default [{
     path: '/apotek/create',
     name: 'TambahApotek',
     component: () => import('@/views/content/apotek/TambahApotek')
-}]
+},
+{
+    path: '/apotek/:id/edit',
+    name: 'EditApotek',
+    component: () => import('@/views/content/apotek/EditApotek'),
+    params: true
+}
+]
