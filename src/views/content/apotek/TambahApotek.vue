@@ -81,7 +81,8 @@ export default {
                 email: '',
                 alamat: ''
             },
-            errorClass: 'text-danger'
+            errorClass: 'text-danger',
+            isLoading: false
         }
     },
     computed: {
@@ -109,7 +110,8 @@ export default {
             dataImage.append('file', selfPost.file)
             selfPost.$store.dispatch("postData", ["akun/apotek", data]).then((response) => {
                 console.log(response);
-                selfPost.$swal({
+                selfPost.$swal(
+                {
                     text: "berhasil menambahkan data",
                     icon: "success"
                 }).then(function () {
@@ -119,9 +121,6 @@ export default {
                 console.log(error);
             })
         },
-        onChange(e){
-            selfPost.file = e.target.files[0]
-        }
     },
     components: {
         Form,

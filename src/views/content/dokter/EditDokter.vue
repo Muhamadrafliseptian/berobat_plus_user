@@ -8,7 +8,7 @@
                     <p class="card-description text-primary">
                         Data Akun Dokter
                     </p>
-                    <LoadingComponent v-if="isLoading"/>
+                    <LoadingComponent v-if="isLoading" />
                     <div class="row">
                         <FieldLabel label="email">
                             <template #body>
@@ -44,7 +44,8 @@
                         </FieldLabel>
                         <FieldLabel label="Foto">
                             <template #body>
-                                <InputField Name="Foto" type="file" v-model="form.foto" class="form-control file-upload-info" />
+                                <InputField Name="Foto" type="file" v-model="form.foto"
+                                    class="form-control file-upload-info" />
                             </template>
                         </FieldLabel>
                     </div>
@@ -124,6 +125,7 @@ import InputField from '@/components/InputField.vue';
 import ButtonAction from '@/components/ButtonAction.vue';
 import VueDatePicker from '@vuepic/vue-datepicker'
 import LoadingComponent from '@/components/LoadingComponent.vue';
+import iziToast from "izitoast";
 import { Form } from 'vee-validate'
 import * as yup from 'yup'
 import FieldLabel from '@/components/FieldLabel.vue';
@@ -214,9 +216,12 @@ export default {
             }
             self.$store.dispatch("updateData", ["akun/dokter", this.idFromParams, data]).then((result) => {
                 console.log(result);
-                self.$swal({
-                    text: "berhasil mengubah data",
-                    icon: "success"
+                iziToast.success({
+                    transitionIn: 'fadeInUp',
+                    timeout: 2000,
+                    title: "Berhasil",
+                    message: "Data berhasil diubah",
+                    position: "topCenter",
                 }).then(function () {
                     window.location = "/dokter"
                 })

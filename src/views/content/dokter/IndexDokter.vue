@@ -52,8 +52,8 @@
                                     {{ dokter.nomorStr }}
                                 </td>
                                 <td>
-                                    <label class="switch" >
-                                        <input type="checkbox" :checked="dokter.userId.status == 1" >
+                                    <label class="switch">
+                                        <input type="checkbox" :checked="dokter.userId.status == 1">
                                         <span class="slider round" @click="updateStatus(dokter.userId.id)"></span>
                                     </label>
                                 </td>
@@ -68,21 +68,42 @@
                         </tbody>
                     </table>
                 </div>
-                <LoadingComponent v-if="isLoading" />
+                <loading v-model:active="isLoading" :can-cancel="true" :on-cancel="onCancel" :is-full-page="fullPage"
+                    :color="color" :background-color="warna" :opacity="opacity" :loader="loader" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import LoadingComponent from '@/components/LoadingComponent.vue';
 import ButtonAction from '@/components/ButtonAction.vue';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/css/index.css';
 export default {
+    props: {
+        opacity: {
+            type: String,
+            default: "0.7"
+        },
+        warna: {
+            type: String,
+            default: "gray"
+        },
+        color: {
+            type: String,
+            default: "black"
+        },
+        loader: {
+            type: String,
+            default: "dots"
+        }
+    },
     data() {
         return {
             dokters: [],
             isLoading: false,
             isActive: false,
+            fullPage: true,
             status: 0
         }
     },
@@ -100,6 +121,7 @@ export default {
                 console.log(result);
                 setTimeout(() => {
                     this.isLoading = false
+                    this.fullPage = false
                     this.dokters = result.data
                 }, 1000);
             }).catch((err) => {
@@ -107,19 +129,19 @@ export default {
                 this.isLoading = false
             });
         },
-        updateStatus(id_user){
+        updateStatus(id_user) {
             var type = "updateData";
             var url = [
-                "akun/active_account", id_user, {        
-                }      
+                "akun/active_account", id_user, {
+                }
             ]
             this.isLoading = true;
             const nansel = this
-            nansel.$store.dispatch(type, url).then((response)=>{
+            nansel.$store.dispatch(type, url).then((response) => {
                 console.log(response);
                 this.isLoading = false;
             })
-        },  
+        },
         deleteDokter(idDokter) {
             const self = this
             this.$swal({
@@ -149,7 +171,7 @@ export default {
         }
     },
     components: {
-        LoadingComponent, ButtonAction
+        Loading, ButtonAction
     }
 }
 </script>

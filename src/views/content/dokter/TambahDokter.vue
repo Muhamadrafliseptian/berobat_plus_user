@@ -181,9 +181,9 @@ export default {
             }
             self.$store.dispatch("postData", ["akun/dokter", data]).then((response) => {
                 console.log(response);
-                self.$swal({
-                    text: "berhasil menambahkan data",
-                    icon: "success"
+                self.$loading.show({
+                    background: 'black',
+                    color: '#00FF00'
                 }).then(function () {
                     window.location = "/dokter"
                 })
