@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import iziToast from 'izitoast'
 import Cookies from "js-cookie";
 import * as yup from 'yup'
 import { Field, Form } from 'vee-validate'
@@ -87,14 +88,18 @@ export default {
                 Cookies.set("token", response.token);
                 Cookies.set("user", JSON.stringify(response));
                 setTimeout(() => {
-                    this.$swal({
-                        text: "berhasil login",
-                        icon: "success"
+                    iziToast.success({
+                        transitionIn: 'fadeInUp',
+                        timeout: 2000,
+                        title: "Berhasil",
+                        message: "Berhasil Login",
+                        position: "topCenter",
                     }).then(function () {
                         window.location = "/"
                     })
                 }, 2000);
             }).catch((err) => {
+                console.log(err);
                 this.isLoading = false
                 this.$swal({
                     text: "Periksa Kembali Form Isian Anda",
