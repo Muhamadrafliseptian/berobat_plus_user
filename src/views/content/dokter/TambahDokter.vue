@@ -124,6 +124,7 @@ import InputField from '@/components/InputField.vue';
 import SelectOption from '@/components/SelectOption.vue';
 import ButtonAction from '@/components/ButtonAction.vue';
 import VueDatePicker from '@vuepic/vue-datepicker'
+import iziToast from 'izitoast';
 import { Form } from 'vee-validate'
 import * as yup from 'yup'
 import FieldLabel from '@/components/FieldLabel.vue';
@@ -167,23 +168,30 @@ export default {
             return `${day}/${month}/${year}`
         },
         handleSubmitDokter() {
-            const self = this
+            const selfPost = this
             const data = {
-                nomor_str: self.nomor_str,
-                kelas: self.kelas,
-                nama: self.form.nama,
-                email: self.form.email,
-                nomor_hp: self.form.nomor_hp,
-                jenis_kelamin: self.form.jenis_kelamin,
-                tempat_lahir: self.form.tempat_lahir,
-                tanggal_lahir: self.form.tanggal_lahir,
-                alamat: self.form.alamat
+                nomor_str: selfPost.nomor_str,
+                kelas: selfPost.kelas,
+                nama: selfPost.form.nama,
+                email: selfPost.form.email,
+                nomor_hp: selfPost.form.nomor_hp,
+                jenis_kelamin: selfPost.form.jenis_kelamin,
+                tempat_lahir: selfPost.form.tempat_lahir,
+                tanggal_lahir: selfPost.form.tanggal_lahir,
+                alamat: selfPost.form.alamat
             }
-            self.$store.dispatch("postData", ["akun/dokter", data]).then((response) => {
+            let type = "postData"
+            let url = [
+                "akun/dokter", data
+            ]
+            selfPost.$store.dispatch(type, url).then((response) => {
                 console.log(response);
-                self.$loading.show({
-                    background: 'black',
-                    color: '#00FF00'
+                iziToast.success({
+                    transitionIn: 'fadeInUp',
+                    timeout: 2000,
+                    title: "Berhasil",
+                    message: "Data berhasil ditambah",
+                    position: "topCenter",
                 }).then(function () {
                     window.location = "/dokter"
                 })

@@ -16,7 +16,8 @@
                         <div class="form-floating mb-3">
                             <Field name="password" :type="
                                 showPassword ? 'text' : 'password'
-                            " class="form-control" v-model="users.password" id="floatingPassword" placeholder="Password" />
+                            " class="form-control" v-model="users.password" id="floatingPassword"
+                                placeholder="Password" />
                             <label for="floatingPassword">Password</label>
                             <span class="text-danger">{{ errors.password }}</span>
                             <div class="input-group-append text-end">
@@ -81,11 +82,10 @@ export default {
             this.showPassword = !this.showPassword
         },
         handleSubmit() {
+            this.isLoading = true
             this.$store.dispatch("postData", ["autentikasi/login", this.users]).then((response) => {
-              
                 Cookies.set("token", response.token);
                 Cookies.set("user", JSON.stringify(response));
-                this.isLoading = true
                 setTimeout(() => {
                     this.$swal({
                         text: "berhasil login",
@@ -95,15 +95,13 @@ export default {
                     })
                 }, 2000);
             }).catch((err) => {
-                console.log("kondangceng");
-                console.log(err);
-                    this.isLoading = false
-                    this.$swal({
-                        text: "Periksa Kembali Form Isian Anda",
-                        icon: "error"
-                    }).then(function () {
-                        window.location = "/login"
-                    })
+                this.isLoading = false
+                this.$swal({
+                    text: "Periksa Kembali Form Isian Anda",
+                    icon: "error"
+                }).then(function () {
+                    window.location = "/login"
+                })
             })
         },
     },

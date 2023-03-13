@@ -68,8 +68,7 @@
                         </tbody>
                     </table>
                 </div>
-                <loading v-model:active="isLoading" :can-cancel="true" :on-cancel="onCancel" :is-full-page="fullPage"
-                    :color="color" :background-color="warna" :opacity="opacity" :loader="loader" />
+                <LoadingComponent v-model:active="isLoading" />
             </div>
         </div>
     </div>
@@ -77,27 +76,9 @@
 
 <script>
 import ButtonAction from '@/components/ButtonAction.vue';
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/css/index.css';
+import LoadingComponent from '@/components/LoadingComponent.vue';
+import iziToast from 'izitoast';
 export default {
-    props: {
-        opacity: {
-            type: String,
-            default: "0.7"
-        },
-        warna: {
-            type: String,
-            default: "gray"
-        },
-        color: {
-            type: String,
-            default: "black"
-        },
-        loader: {
-            type: String,
-            default: "dots"
-        }
-    },
     data() {
         return {
             dokters: [],
@@ -111,39 +92,43 @@ export default {
         this.getDokter()
     },
     computed: {
-
     },
     methods: {
         getDokter() {
-            this.isLoading = true
+            const selfGet = this
+            selfGet.isLoading = true
             const params = [].join("&")
-            this.$store.dispatch("getData", ["akun/dokter", params]).then((result) => {
+            var type = "getData"
+            var url = [
+                "akun/dokter", {}
+            ]
+            selfGet.$store.dispatch(type, url, params).then((result) => {
                 console.log(result);
                 setTimeout(() => {
-                    this.isLoading = false
-                    this.fullPage = false
-                    this.dokters = result.data
+                    selfGet.isLoading = false
+                    selfGet.fullPage = false
+                    selfGet.dokters = result.data
                 }, 1000);
             }).catch((err) => {
                 console.log(err);
-                this.isLoading = false
+                selfGet.isLoading = false
             });
         },
         updateStatus(id_user) {
+            const selfEdit = this
             var type = "updateData";
             var url = [
                 "akun/active_account", id_user, {
                 }
             ]
-            this.isLoading = true;
-            const nansel = this
-            nansel.$store.dispatch(type, url).then((response) => {
+            selfEdit.isLoading = true;
+            selfEdit.$store.dispatch(type, url).then((response) => {
                 console.log(response);
-                this.isLoading = false;
+                selfEdit.isLoading = false;
             })
         },
         deleteDokter(idDokter) {
-            const self = this
+            const selfDestroy = this
             this.$swal({
                 icon: 'question',
                 title: 'Do you want to save the changes?',
@@ -154,24 +139,25 @@ export default {
             })
                 .then((result) => {
                     if (result.isConfirmed) {
-                        self.$store.dispatch("deleteData", ["akun/dokter", idDokter])
-                        this.$swal({
-                            icon: "success",
-                            text: "Data Anda Berhasil di Hapus",
+                        selfDestroy.$store.dispatch("deleteData", ["akun/dokter", idDokter])
+                        iziToast.success({
+                            timeout: 2000,
+                            title: "Berhasil",
+                            message: "Data berhasil ditambah",
+                            position: "topCenter",
                         }).then(function () {
                             window.location = "dokter"
                         });
-
                     } else if (result.isDenied) {
                         this.$swal('Changes are not saved', '', 'info')
-                        self.isLoading = false;
-                        self.getDokter();
+                        selfDestroy.isLoading = false;
+                        selfDestroy.getDokter();
                     }
                 });
         }
     },
     components: {
-        Loading, ButtonAction
+        LoadingComponent, ButtonAction
     }
 }
 </script>

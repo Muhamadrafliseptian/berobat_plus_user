@@ -22,7 +22,7 @@
                         </FieldLabel>
                         <FieldLabel label="Nomor HP">
                             <template #body>
-                                <InputField Name="nomorHp" v-model="form.nomor_hp" />
+                                <InputField Name="nomorHp" v-model="form.nomorHp" />
                                 <span :class="[errorClass]">
                                     <small>
                                         {{ errors.nomorHp }}
@@ -77,7 +77,7 @@
                     <div class="row">
                         <FieldLabel label="Jenis Kelamin">
                             <template #body>
-                                <select class="form-control" v-model="form.jenis_kelamin">
+                                <select class="form-control" v-model="form.jenisKelamin">
                                     <option value="P">Perempuan</option>
                                     <option value="L">Laki Laki</option>
                                 </select>
@@ -85,7 +85,7 @@
                         </FieldLabel>
                         <FieldLabel label="Tanggal Lahir">
                             <template #body>
-                                <VueDatePicker v-model="form.tanggal_lahir" Name="tanggalLahir" placeholder="ddmmyy"
+                                <VueDatePicker v-model="form.tanggalLahir" Name="tanggalLahir" placeholder="ddmmyy"
                                     :format="formatDatePicker" :max-date="new Date()" />
                                 <small>
                                     <span :class="[errorClass]">{{ errors.tanggalLahir }}</span>
@@ -96,7 +96,7 @@
                     <div class="row">
                         <FieldLabel label="Tempat Lahir">
                             <template #body>
-                                <InputField Name="tempatLahir" Label="Tempat Lahir" v-model="form.tempat_lahir" />
+                                <InputField Name="tempatLahir" Label="Tempat Lahir" v-model="form.tempatLahir" />
                                 <small>
                                     <span :class="[errorClass]">{{ errors.tempatLahir }}</span>
                                 </small>
@@ -137,11 +137,11 @@ export default {
             kelas: '',
             form: {
                 nama: '',
-                nomor_hp: '',
+                nomorHp: '',
                 email: '',
-                jenis_kelamin: '',
-                tempat_lahir: '',
-                tanggal_lahir: '',
+                jenisKelamin: '',
+                tempatLahir: '',
+                tanggalLahir: '',
                 alamat: ''
             },
             errorClass: 'text-danger',
@@ -180,25 +180,23 @@ export default {
             return `${year}/${month}/${day}`
         },
         getDokter() {
-            this.isLoading = true
-            this.$store.dispatch("getData", ["akun/dokter/" + this.idFromParams + "/edit", []]).then((result) => {
-                this.form.nama = result.data.userId.nama
-                this.form.email = result.data.userId.email
-                this.form.foto = result.data.userId.foto
-                this.form.nomor_hp = result.data.userId.nomorHp
-                this.form.tanggal_lahir = result.data.userId.tanggalLahir
-                this.form.tempat_lahir = result.data.userId.tempatLahir
-                this.form.jenis_kelamin = result.data.userId.jenisKelamin
-                this.form.alamat = result.data.userId.alamat
-                this.nomor_str = result.data.nomorStr
-                this.kelas = result.data.kelas
+            const selfGet = this
+            selfGet.isLoading = true
+            let type = "getData"
+            let url = [
+                "akun/dokter/" + this.idFromParams + "/edit", []
+            ]
+            selfGet.$store.dispatch(type, url).then((result) => {
+                selfGet.form = result.data.userId
+                selfGet.nomor_str = result.data.nomorStr
+                selfGet.kelas = result.data.kelas
                 setTimeout(() => {
-                    this.isLoading = false
-                    this.dokters = result.data
+                    selfGet.isLoading = false
+                    selfGet.dokters = result.data
                 }, 1000);
             }).catch((err) => {
                 console.log(err);
-                this.isLoading = false
+                selfGet.isLoading = false
             });
         },
         handleEditDokter() {
@@ -208,13 +206,17 @@ export default {
                 kelas: self.kelas,
                 nama: self.form.nama,
                 email: self.form.email,
-                nomor_hp: self.form.nomor_hp,
-                jenis_kelamin: self.form.jenis_kelamin,
-                tempat_lahir: self.form.tempat_lahir,
-                tanggal_lahir: self.form.tanggal_lahir,
+                nomorHp: self.form.nomorHp,
+                jenisKelamin: self.form.jenisKelamin,
+                tempatLahir: self.form.tempatLahir,
+                tanggalLahir: self.form.tanggalLahir,
                 alamat: self.form.alamat
             }
-            self.$store.dispatch("updateData", ["akun/dokter", this.idFromParams, data]).then((result) => {
+            let type = "updateDate"
+            let url = [
+                "akun/dokter", this.idFromParams, data
+            ]
+            self.$store.dispatch(type, url).then((result) => {
                 console.log(result);
                 iziToast.success({
                     transitionIn: 'fadeInUp',

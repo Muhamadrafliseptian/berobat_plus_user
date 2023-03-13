@@ -59,7 +59,7 @@
                         </tbody>
                     </table>
                 </div>
-                <LoadingComponent v-if="isLoading" />
+                <LoadingComponent v-model:active="isLoading" />
             </div>
         </div>
     </div>
