@@ -18,7 +18,9 @@
                 <template v-else>
                     <h5>Profil Perawat</h5>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime alias provident tenetur iusto ex. Veniam qui, quia fugit itaque ipsa error, repudiandae cum nemo nobis harum minima aspernatur? Ratione, necessitatibus?
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime alias provident tenetur iusto ex.
+                        Veniam qui, quia fugit itaque ipsa error, repudiandae cum nemo nobis harum minima aspernatur?
+                        Ratione, necessitatibus?
                     </p>
                 </template>
                 <template v-if="isLoading">
@@ -36,7 +38,7 @@
                     <template v-else>
                         <div class="alert alert-warning text-center">
                             <p>
-                                maaf, sepertinya {{detailPerawat.user.nama}} belum menambahkan keahliannya
+                                maaf, sepertinya {{ detailPerawat.user.nama }} belum menambahkan keahliannya
                             </p>
                         </div>
                     </template>
@@ -50,7 +52,7 @@
                     biaya konsultasi online: Rp. 20000
                 </div>
                 <div class="d-flex justify-content-start">
-                    <button class="btn btn-dark btn-sm" @click="$redirect({name: 'Download App'})">
+                    <button class="btn btn-dark btn-sm" @click="$redirect({ name: 'Download App' })">
                         chat sekarang
                     </button>
                 </div>

@@ -67,6 +67,9 @@ export default {
     }
   },
   methods: {
+    getData(){
+
+    },
     selectKategori(id) {
       this.selectedKategori = id;
     },
@@ -109,7 +112,7 @@ export default {
       }).catch((err) => {
         console.log(err);
       })
-    }
+    },
   },
 };
 </script>
